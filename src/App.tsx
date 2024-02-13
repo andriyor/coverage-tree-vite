@@ -1,16 +1,25 @@
 import Graphin, { Behaviors, Utils } from "@antv/graphin";
 
-import data from "./data.json";
-import tree from "./tree.json";
+// import tree from "./tree.json";
+import myTree from "./my-tree.json";
 
 const { DragCanvas, ZoomCanvas, DragNode, TreeCollapse } = Behaviors;
 
-const dataTree = Utils.mock(20).tree().graphinTree();
-console.log(dataTree);
+// const dataTree = Utils.mock(20).tree().graphinTree();
+// console.log(dataTree);
+
+const getColorByCoverage = (percentage: number) => {
+  if (percentage >= 70 && percentage <= 100) {
+    return "green";
+  } else if (percentage >= 50 && percentage <= 70) {
+    return "yellow";
+  } else {
+    return "red";
+  }
+};
 
 Graphin.registerNode(
   "custom-node",
-
   {
     options: {
       style: {},
@@ -19,6 +28,8 @@ Graphin.registerNode(
         selected: {},
       },
     },
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
     draw(cfg, group) {
       const keyshape = group.addShape("rect", {
         attrs: {
@@ -27,7 +38,7 @@ Graphin.registerNode(
           y: 0,
           width: 200,
           height: 20,
-          fill: "red",
+          fill: getColorByCoverage(cfg.meta.lines.pct),
         },
         draggable: true,
         name: "circle-floor",
@@ -37,7 +48,7 @@ Graphin.registerNode(
           fontSize: 12,
           x: 0,
           y: 15,
-          text: cfg.name,
+          text: cfg.name + cfg.meta.lines.pct,
           fill: "#ddd",
         },
         draggable: true,
@@ -53,11 +64,13 @@ function App() {
   return (
     <div style={{ height: "95vh" }}>
       <Graphin
-        data={tree}
+        data={myTree}
         defaultNode={{ type: "custom-node" }}
         layout={{
           type: "compactBox",
           direction: "LR",
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-expect-error
           getId: function getId(d) {
             return d.id;
           },
