@@ -2,6 +2,7 @@ import Graphin, { Behaviors, Utils } from "@antv/graphin";
 
 // import tree from "./tree.json";
 import myTree from "./my-tree.json";
+import { FileTree } from "./types";
 
 const { DragCanvas, ZoomCanvas, DragNode, TreeCollapse } = Behaviors;
 
@@ -18,6 +19,15 @@ const getColorByCoverage = (percentage: number) => {
   }
 };
 
+const buildNodeText = (cfg: FileTree) => {
+  return (
+    `${cfg.name}\n` +
+    "Lines: " +
+    cfg.meta.lines.pct +
+    ` ${cfg.meta.lines.skipped}/${cfg.meta.lines.total}`
+  );
+};
+
 Graphin.registerNode(
   "custom-node",
   {
@@ -30,14 +40,14 @@ Graphin.registerNode(
     },
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error
-    draw(cfg, group) {
+    draw(cfg: FileTree, group) {
       const keyshape = group.addShape("rect", {
         attrs: {
           id: "circle-floor",
           x: 0,
           y: 0,
           width: 200,
-          height: 20,
+          height: 40,
           fill: getColorByCoverage(cfg.meta.lines.pct),
         },
         draggable: true,
@@ -47,8 +57,8 @@ Graphin.registerNode(
         attrs: {
           fontSize: 12,
           x: 0,
-          y: 15,
-          text: cfg.name + cfg.meta.lines.pct,
+          y: 30,
+          text: buildNodeText(cfg),
           fill: "#ddd",
         },
         draggable: true,

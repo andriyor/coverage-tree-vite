@@ -3,14 +3,15 @@
 ## TODO
 
 - [x] show tree graph based on coverage report
+- [x] expandable node
+- [x] custom node renderer
 - [x] collor of node based on file coverage
+- [ ] select between lines/functions/statements/branches
 - [ ] node with progress bar
 - [ ] calculate total coverage of node 
 - [ ] link to file with coverage
 - [ ] search node
 - [ ] render graph on center initially
-
-
 
 ## React + TypeScript + Vite
 
