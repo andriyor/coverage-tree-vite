@@ -5,7 +5,7 @@ type CoverageInfo = {
   pct: number;
 };
 
-type Coverage = {
+export type Coverage = {
   lines: CoverageInfo;
   functions: CoverageInfo;
   statements: CoverageInfo;
@@ -19,4 +19,9 @@ export type FileTree = {
   name: string;
   meta: Coverage;
   children: FileTree[];
+};
+
+export type FileTreeNew = FileTree & {
+  totalMeta: Coverage;
+  children: FileTreeNew[];
 };
