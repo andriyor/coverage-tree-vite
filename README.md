@@ -9,9 +9,15 @@
 - [ ] select between lines/functions/statements/branches
 - [ ] node with progress bar
 - [x] calculate total coverage of node
+- [ ] calculate total coverage of node and ignore duplicated nodes
 - [ ] link to file with coverage
+- [ ] copy node file path
 - [ ] search node
 - [ ] render graph on center initially
+
+## Major Issue
+
+- [ ] useEffect blocks graph moving, so i decided to use nextjs
 
 ## React + TypeScript + Vite
 
